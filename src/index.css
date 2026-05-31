@@ -1,0 +1,121 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  background: #110018;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(168, 0, 184, 0.55), transparent 34rem),
+    radial-gradient(circle at 83% 86%, rgba(105, 0, 184, 0.5), transparent 34rem),
+    #140018;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.35);
+  color: white;
+}
+
+@keyframes gridDrift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-54px, -54px, 0);
+  }
+}
+
+@keyframes orbitalGlow {
+  0%,
+  100% {
+    opacity: 0.58;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes traceFlow {
+  to {
+    stroke-dashoffset: -90;
+  }
+}
+
+@keyframes softPulse {
+  0%,
+  100% {
+    opacity: 0.38;
+  }
+  50% {
+    opacity: 0.78;
+  }
+}
+
+.glass {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.035));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 28px 70px rgba(35, 0, 54, 0.35);
+  backdrop-filter: blur(22px);
+}
+
+.circuit-card {
+  transform: translate(-50%, -50%);
+}
+
+.trace-idle {
+  animation: traceFlow 5.5s linear infinite, softPulse 3.8s ease-in-out infinite;
+}
+
+.center-bloom {
+  animation: orbitalGlow 4s ease-in-out infinite;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+.chip {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  background: #333;
+  border-radius: 8px;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px #555;
+}
+ 
+.chip.pulse {
+  animation: chipPulse 1s infinite;
+}
+ 
+@keyframes chipPulse {
+  0% { box-shadow: 0 0 10px #0ff; transform: translate(-50%, -50%) scale(1); }
+  50% { box-shadow: 0 0 25px #0ff; transform: translate(-50%, -50%) scale(1.1); }
+  100% { box-shadow: 0 0 10px #0ff; transform: translate(-50%, -50%) scale(1); }
+}
