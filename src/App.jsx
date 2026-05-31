@@ -118,11 +118,12 @@ const NODES = [
   { id:0, title:"Schematic design",  icon: Layers3,     px:48.5, py:3 },
   { id:1, title:"PCB layout design",        icon: LayoutGrid,  px:65,   py:12  },
   { id:2, title:"EMI/EMC",   icon: Activity,    px:88,   py:22  },
-  { id:3, title:"Firmware Dev",      icon: Microchip,   px:70,   py:80  },
-  { id:4, title:"System Testing",    icon: Settings,    px:50,   py:90  },
-  { id:5, title:"RF Engineering",    icon: RadioTower,  px:29,   py:78  },
-  { id:6, title:"Industrial Power",  icon: Factory,     px:15,   py:42  },
-  { id:7, title:"Systems Requirement",icon: ShieldCheck, px:20,   py:17  },
+  { id:3, title:"Firmware",                   icon: Microchip,   px:78,   py:76  },
+  { id:4, title:"Mechanical",    icon: Settings,    px:58,   py:88  },
+  { id:5, title:"Electrical",    icon: RadioTower,  px:32,   py:81  },
+  { id:6, title:"Industrial Power",  icon: Factory,     px:8,   py:71  },
+  { id:7, title:"Systems Requirement",icon: ShieldCheck, px:0,   py:42.5  },
+  { id:8, title:"Systems Requirement",icon: ShieldCheck, px:20,   py:17  },
 ];
 
 // const ROUTES_NODE_OVERRIDES = {
@@ -197,20 +198,27 @@ const CHIP = { px: 49.5, py: 50 };
 
 
 /* ── Signal pulse paths along real trace routes (% coords) ──
-   Each path traces from chip outward following the actual
+   Each path traces from chips outward following the actual
    trace lines visible in the PCB image */
 const PULSE_PATHS = [
   // Top vertical traces (0..6)
-  [[49,39],[49,27.5],[51,23],[51,10]],
-  [[54.6,39],[54.6,36],[57.5,29.5],[57.5,23],[60,17.5],[66,17.5]],
-  [[56.5,43.5],[65,43.5],[68.5,35.5],[78,35.5],[80,32],[93,38]],
+  [[49,39],[49,27.5],[51,23],[51,10]],//0th glow line
+  [[54.6,39],[54.6,36],[57.5,29.5],[57.5,23],[60,17.5],[66,17.5]],//1st glow line
+  [[56.5,43.5],[65,43.5],[68.5,35.5],[78,35.5],[81,28],[90,28]],//2nd glow line
+
+  [[56.5,64],[60,64],[62.5,69.2],[67.5,69.2],[72.8,82],[79,82]],//3rd glow line
+
 
   // Bottom vertical traces (7..11)
-  [[49.5,65],[49.5,92]],
-  [[47.5,65],[47.5,92]],
-  [[51.5,65],[51.5,92]],
-  [[45,65],[45,78],[38,78],[38,92]],
-  [[54,65],[54,78],[62,78],[62,92]],
+ [[55.7,65.5],[55.7,74],[57.5,78.7],[59.9,78.7],[60.7,81],[60.7,89]],//4th glow line
+  [[46.8,66],[46.8,69],[44,75],[44,77],[44,81],[41.5,87],[35.5,87]],//5th glow line
+
+  [[44.8,61.3],[36.5,61.3],[32.8,69.3],[23.3,69.3],[19.7,77.3],[11,77.3]],//6th glow line
+  [[44.8,48.3],[37.5,48.3],[36.2,45.3],[27.5,45.3],[22.8,55],[12.5,55],[9.2,47.8],[1.5,47.8]], //7th glow line
+   [[44.8,41],[41.5,41],[38.8,35.6],[34.3,35.6],[28.5,22.6],[22.5,22.6]],//8th glow line
+  
+  
+   [[54,65],[54,78],[62,78],[62,92]],
   // Left horizontal traces (12..18)
   [[35,49.5],[8,49.5]],
   [[35,47],[8,47]],
@@ -223,7 +231,6 @@ const PULSE_PATHS = [
   [[65,49.5],[93,49.5]],
   [[65,47],[93,47]],
   [[65,52],[93,52]],
-  [[68,48],[78,44],[78,38],[93,38]],
   [[65,56],[78,56],[78,62],[93,62]],
   [[65,42],[82,42],[82,30],[93,30]],
   [[65,58],[82,58],[82,70],[93,70]],
@@ -236,10 +243,11 @@ const NODE_TO_PULSE_PATH_INDEX = {
   1: 1,
   2: 2,
   3: 3,
-  4: 7,
-  5: 19,
-  6: 8,
-  7: 13,
+  4: 4,
+  5: 5,
+  6: 6,
+  7: 7,
+  8: 8,
 };
 
 // Simple helper: polyline points ([[x,y],...]) => SVG path d.
@@ -646,8 +654,23 @@ function HomeSection() {
             <div style={{ background:"rgba(20,6,58,0.94)", border:"1px solid rgba(170,105,252,0.50)", backdropFilter:"blur(20px)", boxShadow:"0 4px 26px rgba(105,30,218,0.40)", borderRadius:"2rem", padding:"10px 22px", fontSize:13, fontWeight:900, color:"#fff", letterSpacing:"-0.01em" }}>
               We are best at providing
             </div>
-            <motion.span initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:1.45 }}
-              style={{ marginRight:32, fontSize:22, color:"rgba(182,132,255,0.72)", transform:"scaleX(-1)", display:"inline-block", lineHeight:1 }}>↙</motion.span>
+            <motion.span
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ delay: 1.45 }}
+  style={{
+    marginRight: 70,
+    marginTop: 4,
+    fontSize: 48,
+    color: "rgba(255,255,255,0.9)",
+    display: "inline-block",
+    lineHeight: 1,
+    transform: "rotate(-8deg)",
+    textShadow: "0 0 12px rgba(255,255,255,0.35)",
+  }}
+>
+  ↙
+</motion.span>
           </motion.div>
 
           <div style={{ position:"absolute", inset:0, padding:"24px 16px 24px 8px" }}>
