@@ -387,7 +387,7 @@ function DiagramArea({ hovered, setHovered }) {
       <div style={{
         position:"relative",
         width:"100%",
-        maxWidth:820,
+        maxWidth:950,
         aspectRatio:"905/420",
         filter:"drop-shadow(0 0 32px rgba(140,60,255,0.55)) drop-shadow(0 0 80px rgba(100,20,200,0.35))",
       }}>
@@ -416,7 +416,29 @@ function DiagramArea({ hovered, setHovered }) {
         {/* <PCBAnimated /> */}
 
         {/* Chip center glow pulse */}
-        <ChipGlow />
+        {/* <ChipGlow /> */}
+        <div
+          style={{
+            position:"absolute",
+            left:"50.6%",
+            top:"52.4%",
+            transform:"translate(-50%,-50%)",
+            width:52,
+            height:52,
+            borderRadius:"50%",
+            overflow:"hidden",
+            border:"2px solid rgb(201, 150, 255)",
+            boxShadow:"0 0 16px rgba(160,90,255,0.5)",
+            pointerEvents:"none",
+            zIndex:25,
+          }}
+        >
+          <img
+            src={myPCB}
+            alt="chip logo"
+            style={{ width:"100%", height:"100%", objectFit:"cover" }}
+          />
+        </div>
 
         {/* SVG connector lines from nodes to chip */}
         <svg
@@ -597,9 +619,10 @@ function App() {
     <main className="relative min-h-screen overflow-hidden bg-[#120017] text-white">
       <BackgroundEffects />
       <Header />
-<CircuitBoard/>
+{/* <CircuitBoard/>
 <NewImageCircuit/>
- <HomeSection/>
+<CircuitNetwork/> */}
+
 
       <section
         id="home"
@@ -623,7 +646,7 @@ function App() {
             Specialized manufacturing services for defense, industrial and intelligent infrastructure. Complex specifications become high-reliability circuit systems.
           </p>
         </div>
-<CircuitNetwork/>
+ <HomeSection/>
         {/* <motion.div style={{ x: parallaxX, y: parallaxY }} className="relative z-10 mt-12 flex flex-1 items-center justify-center lg:-mt-2">
           <CircuitNetwork active={active} setActive={setActive} />
         </motion.div> */}
@@ -643,35 +666,66 @@ function App() {
 function HomeSection() {
   const [hovered, setHovered] = useState(null);
   return (
-    <section id="home" style={{ position:"relative", width:"100%", minHeight:"100vh", paddingTop:72, display:"flex" }}>
+    <section id="home" style={{ position:"relative", width:"100%", minHeight:"100vh", paddingTop:2, display:"flex" }}>
       <div style={{ display:"flex", width:"100%", minHeight:"calc(100vh - 72px)", alignItems:"center" }}>
         {/* RIGHT: PCB diagram */}
-        <div style={{ flex:1, position:"relative", alignSelf:"stretch", minHeight:480, display:"flex", alignItems:"center" }}>
-          {/* "We are best at providing" pill */}
+        <div className="hidden md:flex flex-1 relative self-stretch items-center" style={{ minHeight: 480 }}>
+          {/* Text + arrow attached to the PCB image overlay */}
           <motion.div
-            initial={{ opacity:0, y:-12 }} animate={{ opacity:1, y:0 }} transition={{ delay:1.1, duration:0.52 }}
-            style={{ position:"absolute", top:"14%", right:"6%", zIndex:30, display:"flex", flexDirection:"column", alignItems:"flex-end", gap:4 }}>
-            <div style={{ background:"rgba(20,6,58,0.94)", border:"1px solid rgba(170,105,252,0.50)", backdropFilter:"blur(20px)", boxShadow:"0 4px 26px rgba(105,30,218,0.40)", borderRadius:"2rem", padding:"10px 22px", fontSize:13, fontWeight:900, color:"#fff", letterSpacing:"-0.01em" }}>
+            initial={{ opacity:0, y:-12 }}
+            animate={{ opacity:1, y:0 }}
+            transition={{ delay:1.1, duration:0.52 }}
+            style={{
+              position:"absolute",
+              zIndex:30,
+              display:"flex",
+              flexDirection:"column",
+              alignItems:"flex-end",
+              marginLeft: 10,
+              gap:4,
+              // Position in PCB-image percentage so it moves with the image
+              left:"54%",
+              top:"7%",
+              transform:"translate(-50%,-50%)",
+              pointerEvents:"none",
+            }}
+          >
+            <div
+              style={{
+                background:"rgba(20,6,58,0.94)",
+                border:"1px solid rgba(170,105,252,0.50)",
+                backdropFilter:"blur(20px)",
+                boxShadow:"0 4px 26px rgba(105,30,218,0.40)",
+                borderRadius:"2rem",
+                padding:"10px 22px",
+                fontSize:13,
+                fontWeight:900,
+                color:"#ffffff",
+                letterSpacing:"-0.01em",
+              }}
+            >
               We are best at providing
             </div>
+
+            {/* Arrow placed relative to the label so it stays attached */}
             <motion.span
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  transition={{ delay: 1.45 }}
-  style={{
-    marginRight: 70,
-    marginTop: 4,
-    fontSize: 48,
-    color: "rgba(255,255,255,0.9)",
-    display: "inline-block",
-    lineHeight: 1,
-    transform: "rotate(-8deg)",
-    textShadow: "0 0 12px rgba(255,255,255,0.35)",
-  }}
->
-  ↙
-</motion.span>
+              initial={{ opacity:0 }}
+              animate={{ opacity:1 }}
+              transition={{ delay:1.45 }}
+              style={{
+                fontSize:48,
+                color:"rgba(129, 83, 144, 0.9)",
+                display:"inline-block",
+                lineHeight:1,
+                transform:"rotate(-8deg)",
+                marginRight:"-22px",
+                marginTop:"-10px",
+              }}
+            >
+              ↙
+            </motion.span>
           </motion.div>
+
 
           <div style={{ position:"absolute", inset:0, padding:"24px 16px 24px 8px" }}>
             <DiagramArea hovered={hovered} setHovered={setHovered} />
