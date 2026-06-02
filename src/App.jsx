@@ -643,7 +643,7 @@ function App() {
             Precision Engineered AI Hardware.
           </motion.h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-white/58 sm:text-xl">
-            Specialized in manufacturing services for defense, industrial and intelligent infrastructure. Complex specifications become high-reliability circuit systems.
+            Specialized manufacturing services for defense, industrial and intelligent infrastructure. Complex specifications become high-reliability circuit systems.
           </p>
         </div>
  <HomeSection/>
@@ -666,8 +666,8 @@ function App() {
 function HomeSection() {
   const [hovered, setHovered] = useState(null);
   return (
-    <section id="home" style={{ position:"relative", width:"100%", minHeight:"100vh", paddingTop:2, display:"flex" }}>
-      <div style={{ display:"flex", width:"100%", minHeight:"calc(100vh - 72px)", alignItems:"center" }}>
+    <section id="home" style={{ position:"relative", width:"100%", minHeight:"50%", paddingTop:2, display:"flex" }}>
+      <div style={{ display:"flex", width:"100%", minHeight:700, alignItems:"center" }}>
         {/* RIGHT: PCB diagram */}
         <div className="hidden md:flex flex-1 relative self-stretch items-center" style={{ minHeight: 480 }}>
           {/* Text + arrow attached to the PCB image overlay */}
@@ -679,7 +679,7 @@ function HomeSection() {
               position:"absolute",
               zIndex:30,
               display:"flex",
-              flexDirection:"column",
+              :"column",
               alignItems:"flex-end",
               marginLeft: 10,
               gap:4,
