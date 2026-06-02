@@ -627,7 +627,7 @@ function App() {
       <section
         id="home"
         onMouseMove={handleMouseMove}
-        className="relative mx-auto flex min-h-screen w-full max-w-[1500px] flex-col px-5 pb-16 pt-32 sm:px-8 lg:px-12 lg:pt-40"
+        className="relative mx-auto flex w-full max-w-[1500px] flex-col px-5 pb-16 pt-32 sm:px-8 lg:px-12 lg:pt-40"
       >
         <div className="relative z-10 max-w-3xl">
           <div className="mb-8 flex items-center gap-4 text-xs font-extrabold uppercase tracking-[0.28em] text-fuchsia-100">
@@ -643,7 +643,7 @@ function App() {
             Precision Engineered AI Hardware.
           </motion.h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-white/58 sm:text-xl">
-            Specialized manufacturing services for defense, industrial and intelligent infrastructure. Complex specifications become high-reliability circuit systems.
+            Specialized in manufacturing services for defense, industrial and intelligent infrastructure. Complex specifications become high-reliability circuit systems.
           </p>
         </div>
  <HomeSection/>
@@ -679,7 +679,7 @@ function HomeSection() {
               position:"absolute",
               zIndex:30,
               display:"flex",
-              :"column",
+              flexDirection:"column",
               alignItems:"flex-end",
               marginLeft: 10,
               gap:4,
