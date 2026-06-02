@@ -643,7 +643,7 @@ function App() {
             Precision Engineered AI Hardware.
           </motion.h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-white/58 sm:text-xl">
-            Specialized manufacturing services for defense, industrial and intelligent infrastructure. Complex specifications become high-reliability circuit systems.
+            Specialized in manufacturing services for defense, industrial and intelligent infrastructure. Complex specifications become high-reliability circuit systems.
           </p>
         </div>
  <HomeSection/>
