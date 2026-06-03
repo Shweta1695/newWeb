@@ -1,5 +1,9 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import myPCB from './assets/my-pcb-image.png';
+import logo from './assets/logo_new.svg';
+
+
+
 
 import { motion, useMotionValue, useSpring, useTransform,AnimatePresence } from "framer-motion";
 import {
@@ -121,8 +125,8 @@ const NODES = [
   { id:3, title:"Firmware",                   icon: Microchip,   px:78,   py:76  },
   { id:4, title:"Mechanical",    icon: Settings,    px:58,   py:88  },
   { id:5, title:"Electrical",    icon: RadioTower,  px:32,   py:81  },
-  { id:6, title:"Industrial Power",  icon: Factory,     px:8,   py:71  },
-  { id:7, title:"Systems Requirement",icon: ShieldCheck, px:0,   py:42.5  },
+  { id:6, title:"Production",  icon: Factory,     px:8,   py:71  },
+  { id:7, title:"Compoenent Selection",icon: ShieldCheck, px:0,   py:42.5  },
   { id:8, title:"Systems Requirement",icon: ShieldCheck, px:20,   py:17  },
 ];
 
@@ -267,12 +271,12 @@ function polylineToD(points) {
 
 
 const products = [
-  ["LRF Modulator Unit",           "BPSK / RS-422 interface",          "Mission-critical interface bridging legacy PUMA BPSK signaling with modern BEL digital systems."],
-  ["Navigation Light Control",     "40A multi-channel | marine grade",  "Advanced vessel navigation control with automated failure detection and redundant power architecture."],
-  ["High-Precision DC Monitoring", "1600A capacity | sub-second trip",  "Industrial-grade protection relays for high-current infrastructure and precise voltage logic."],
-  ["Alarm Annunciator System",     "Modbus RTU | IP65",                 "Robust industrial alarming with configurable sequence logic for demanding facilities."],
-  ["Static Auto Changeover",       "3-phase | <10ms transfer",          "Seamless source transfer for critical loads with quiet, dependable switching."],
-  ["Precision Power Units",        "MIL-STD-461 | AC/DC",              "Low-ripple linear supplies for sensitive RF and embedded electronics equipment."],
+  ["LRF Modulator Unit",           "BPSK / RS-422 interface",          "Mission-critical interface bridging legacy PUMA BPSK signaling with modern BEL digital systems. Engineered for MIL-grade reliability."],
+  ["Navigation Light Control",     "40A multi-channel | marine grade",  "Advanced vessel navigation control with automated failure detection and dual-redundant power architecture."],
+  ["High-Precision DC Monitoring", "1600A capacity | sub-second trip",  "IIndustrial-grade protection relays for high-current infrastructure, featuring precise over/under voltage logic."],
+  ["Alarm Annunciator System",     "Modbus RTU | IP65",                 "Robust industrial alarming with configurable sequence logic."],
+  ["Static Auto Changeover",       "3-phase | <10ms transfer",          "Seamless source transfer for critical loads."],
+  ["Precision Power Units",        "MIL-STD-461 | AC/DC",              "Low-ripple linear supplies for sensitive RF equipment."],
 ];
 /* ══════════════════════════════════════════════════════════
    PCB ANIMATED OVERLAY — signal pulses on top of real image
@@ -381,14 +385,14 @@ function PulseAnimation({ path }) {
    ══════════════════════════════════════════════════════════ */
 function DiagramArea({ hovered, setHovered }) {
   return (
-    <div style={{ position:"relative", left: "100px",  width:"100%", height:"45%", display:"flex", alignItems:"center", justifyContent:"center" }}>
+    <div style={{ position:"relative", left: "100px",  width:"100%", height:"75%", display:"flex", alignItems:"center", justifyContent:"center" }}>
 
       {/* ── PCB image container with glow ── */}
       <div style={{
         position:"relative",
         width:"100%",
-        maxWidth:950,
-        aspectRatio:"905/420",
+        maxWidth:800,
+        aspectRatio:"900/400",
         filter:"drop-shadow(0 0 32px rgba(140,60,255,0.55)) drop-shadow(0 0 80px rgba(100,20,200,0.35))",
       }}>
 
@@ -433,11 +437,16 @@ function DiagramArea({ hovered, setHovered }) {
             zIndex:25,
           }}
         >
+          <span className="grid w-13 h-16 place-items-center rounded-full bg-white text-purple-900 shadow-neon">
           <img
-            src={myPCB}
+            src={logo}
             alt="chip logo"
-            style={{ width:"100%", height:"100%", objectFit:"cover" }}
-          />
+            style={{ width:"100%", height:"100%",
+               objectFit:"fill", 
+                borderRadius: "50%"  }}
+          /></span>
+           
+          
         </div>
 
         {/* SVG connector lines from nodes to chip */}
@@ -627,9 +636,10 @@ function App() {
         <section
           id="home"
           onMouseMove={handleMouseMove}
-          className="relative mx-auto flex w-full max-w-[1500px] flex-col px-5 pb-16 pt-32 sm:px-8 lg:px-12 lg:pt-40"
+          className="relative mx-auto flex w-full max-w-[1320px] flex-col px-5 pb-4 pt-32 sm:px-8 lg:px-12 lg:pt-40"
+
         >
-          <div className="relative z-10 max-w-2xl ml-28">
+          {<div className="relative z-10 max-w-2xl">
             <div className="mb-8 ml-6 flex items-center gap-4 text-xs font-extrabold uppercase tracking-[0.28em] text-fuchsia-100">
               <span className="h-px w-12 bg-fuchsia-300/70" />
               Design • Proto • Validation
@@ -640,12 +650,16 @@ function App() {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-balance text-4xl font-black leading-[0.98] tracking-tight text-white sm:text-4xl lg:text-4xl"
             >
-              Precision Engineered AI Hardware.
+              Precision Engineered
             </motion.h1>
-            <p className="mt-7 max-w-2xl text-sm leading-8 text-white/58 sm:text-sm">
-              Specialized manufacturing services for defense, industrial and intelligent infrastructure. Complex specifications become high-reliability circuit systems.
-            </p>
-          </div>
+           <p className="mt-7 w-[480px] text-sm leading-8 text-gray-400 sm:text-sm line-clamp-3">
+            Specialized manufacturing services for Defense and Industrial sectors. 
+            We transform complex specifications into high-reliability
+            hardware solutions.
+</p>
+
+          </div> }
+        
   <HomeSection/>
         {/* <motion.div style={{ x: parallaxX, y: parallaxY }} className="relative z-10 mt-12 flex flex-1 items-center justify-center lg:-mt-2">
           <CircuitNetwork active={active} setActive={setActive} />
@@ -667,7 +681,7 @@ function HomeSection() {
   const [hovered, setHovered] = useState(null);
   return (
     <section id="home" style={{ position:"relative", width:"100%", minHeight:"50%", paddingTop:2, display:"flex" }}>
-      <div style={{ display:"flex", width:"100%", minHeight:700, alignItems:"center" }}>
+      <div style={{ display:"flex", width:"100%", minHeight:"auto", alignItems:"center" }}>
         {/* RIGHT: PCB diagram */}
         <div className="hidden md:flex flex-1 relative self-stretch items-center" style={{ minHeight: 480 }}>
           {/* Text + arrow attached to the PCB image overlay */}
@@ -680,12 +694,12 @@ function HomeSection() {
               zIndex:30,
               display:"flex",
               flexDirection:"column",
-              alignItems:"flex-end",
+              alignItems:"center",
               marginLeft: 10,
               gap:4,
               // Position in PCB-image percentage so it moves with the image
-              left:"54%",
-              top:"7%",
+              left:"64%",
+              top:"-15%",
               transform:"translate(-50%,-50%)",
               pointerEvents:"none",
             }}
@@ -695,8 +709,8 @@ function HomeSection() {
                 background:"rgba(20,6,58,0.94)",
                 border:"1px solid rgba(170,105,252,0.50)",
                 backdropFilter:"blur(20px)",
-                boxShadow:"0 4px 26px rgba(105,30,218,0.40)",
-                borderRadius:"2rem",
+                // boxShadow:"0 4px 26px rgba(105,30,218,0.40)",
+                 borderRadius:"2rem",
                 padding:"10px 22px",
                 fontSize:13,
                 fontWeight:900,
@@ -727,7 +741,7 @@ function HomeSection() {
           </motion.div>
 
 
-          <div style={{ position:"absolute", inset:0, padding:"0px 16px 24px 8px" }}>
+          <div style={{ position:"absolute", inset:0, padding:"0px 16px 0px 0px" }}>
             <DiagramArea hovered={hovered} setHovered={setHovered} />
           </div>
         </div>
@@ -749,33 +763,108 @@ function Background() {
   );
 }
 
+// function Header() {
+//   return (
+//     <header className="fixed left-0 right-0 top-0 z-50 px-4 pt-6 sm:px-8">
+//       <nav className="glass mx-auto flex h-[74px] max-w-[1200px] items-center justify-between rounded-[2rem] px-5 sm:px-7">
+//         <a href="#home" className="flex items-center gap-3">
+//          <span className="grid w-8 h-8 place-items-center rounded-full bg-white text-purple-900">
+//           <img
+//             src={logo}
+//             alt="chip logo"
+//             style={{ width:"100%", height:"100%",
+//                objectFit:"fill", 
+//                 borderRadius: "50%"  }}
+//           /></span>
+//           <span className="text-base font-black tracking-tight sm:text-lg">WEELEKTRONIK</span>
+//         </a>
+//         <div className="hidden items-center gap-9 text-[11px] font-extrabold uppercase tracking-[0.24em] text-white/70 md:flex">
+//           <a href="#home" className="transition hover:text-white">Home</a>
+//           <a href="#products" className="transition hover:text-white">Products</a>
+//           <a href="#capabilities" className="transition hover:text-white">Capabilities</a>
+//           <a href="#contact" className="transition hover:text-white">Contact</a>
+//         </div>
+//         <a
+//           href="#contact"
+//           className="hidden rounded-full bg-white px-7 py-3 text-xs font-black uppercase tracking-[0.16em] text-purple-900 shadow-[0_0_36px_rgba(255,255,255,0.16)] transition hover:bg-cyan-100 sm:inline-flex"
+//         >
+//           Consult an Engineer
+//         </a>
+//       </nav>
+//     </header>
+//   );
+// }
 function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <header className="fixed left-0 right-0 top-0 z-50 px-4 pt-6 sm:px-8">
       <nav className="glass mx-auto flex h-[74px] max-w-[1200px] items-center justify-between rounded-[2rem] px-5 sm:px-7">
+        {/* Logo */}
         <a href="#home" className="flex items-center gap-3">
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-purple-900 shadow-neon">
-            <Satellite size={19} strokeWidth={2.4} />
+          <span className="grid w-8 h-8 place-items-center rounded-full bg-white text-purple-900">
+            <img src={logo} alt="logo" style={{ width:"100%", height:"100%", objectFit:"fill", borderRadius:"50%" }} />
           </span>
           <span className="text-base font-black tracking-tight sm:text-lg">WEELEKTRONIK</span>
         </a>
+
+        {/* Desktop nav */}
         <div className="hidden items-center gap-9 text-[11px] font-extrabold uppercase tracking-[0.24em] text-white/70 md:flex">
           <a href="#home" className="transition hover:text-white">Home</a>
           <a href="#products" className="transition hover:text-white">Products</a>
           <a href="#capabilities" className="transition hover:text-white">Capabilities</a>
           <a href="#contact" className="transition hover:text-white">Contact</a>
         </div>
-        <a
-          href="#contact"
-          className="hidden rounded-full bg-white px-7 py-3 text-xs font-black uppercase tracking-[0.16em] text-purple-900 shadow-[0_0_36px_rgba(255,255,255,0.16)] transition hover:bg-cyan-100 sm:inline-flex"
-        >
+
+        {/* Desktop CTA */}
+        <a href="#contact" className="hidden rounded-full bg-white px-7 py-3 text-xs font-black uppercase tracking-[0.16em] text-purple-900 shadow-[0_0_36px_rgba(255,255,255,0.16)] transition hover:bg-cyan-100 sm:inline-flex md:inline-flex">
           Consult an Engineer
         </a>
+
+        {/* Hamburger button — mobile only */}
+        <button
+          onClick={() => setMenuOpen(o => !o)}
+          className="md:hidden flex flex-col justify-center items-center gap-[5px] w-10 h-10 rounded-full border border-white/20 bg-white/10 backdrop-blur-md"
+          aria-label="Toggle menu"
+        >
+          <span className={`block h-[2px] w-5 bg-white rounded-full transition-all duration-300 origin-center ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+          <span className={`block h-[2px] w-5 bg-white rounded-full transition-all duration-300 ${menuOpen ? "opacity-0 scale-x-0" : ""}`} />
+          <span className={`block h-[2px] w-5 bg-white rounded-full transition-all duration-300 origin-center ${menuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
+        </button>
       </nav>
+
+      {/* Mobile dropdown menu */}
+   {/* Mobile dropdown menu */}
+<div
+  className={`md:hidden mx-4 overflow-hidden transition-all duration-300 ease-in-out ${
+    menuOpen ? "max-h-80 opacity-100 mt-2" : "max-h-0 opacity-0"
+  }`}
+>
+  <div className="glass rounded-[1.5rem] px-6 py-5 flex flex-col gap-5">
+    {["home", "products", "capabilities", "contact"].map(link => (
+      <a
+        key={link}
+        href={`#${link}`}
+        onClick={() => setMenuOpen(false)}
+        className="text-[11px] font-extrabold uppercase tracking-[0.24em] text-white/70 hover:text-white transition"
+      >
+        {link}
+      </a>
+    ))}
+
+    <a
+      href="#contact"
+      onClick={() => setMenuOpen(false)}
+      className="mt-1 rounded-full bg-white px-6 py-3 text-center text-xs font-black uppercase tracking-[0.16em] text-purple-900 transition hover:bg-cyan-100"
+    >
+      Consult an Engineer
+    </a>
+  </div>
+</div>
+   
     </header>
   );
 }
-
 
 function BackgroundEffects() {
   // const particles = useMemo(
@@ -793,7 +882,8 @@ function BackgroundEffects() {
   return (
     <div className="pointer-events-none fixed inset-0 overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_14%_0%,rgba(168,0,184,0.58),transparent_30rem),radial-gradient(circle_at_84%_88%,rgba(116,0,184,0.62),transparent_32rem),linear-gradient(180deg,rgba(17,0,24,0.2),#120017_92%)]" />
-      <div
+      { 
+      /* for grid <div
         className="absolute inset-[-80px] opacity-[0.13]"
         style={{
           backgroundImage:
@@ -801,7 +891,7 @@ function BackgroundEffects() {
           backgroundSize: "54px 54px",
           animation: "gridDrift 16s linear infinite"
         }}
-      />
+      /> */}
       <div className="absolute left-[-10rem] top-[-6rem] h-[34rem] w-[34rem] rounded-full bg-fuchsia-700/35 blur-[120px]" />
       <div className="absolute bottom-[-10rem] right-[-10rem] h-[36rem] w-[36rem] rounded-full bg-purple-700/40 blur-[110px]" />
       {/* {particles.map((particle) => (
@@ -1180,9 +1270,9 @@ function ProductsSection() {
     <section id="products" className="relative z-10 mx-auto max-w-[1320px] px-5 py-24 sm:px-8 lg:px-12">
       <div className="mb-12 flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
         <div>
-          <h2 className="text-5xl font-black tracking-tight sm:text-6xl">Product Portfolio.</h2>
+          <h2 className="text-4xl font-black tracking-tight sm:text-4xl">Product Portfolio.</h2>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-white/62">
-            Indigenous hardware developed for high-reliability maritime, defense and power infrastructure applications.
+            Indigenous hardware developed for high-reliability maritime, defense, and power infrastructure applications.
           </p>
         </div>
         <div className="flex w-fit rounded-full bg-fuchsia-700/35 p-1 text-xs font-black uppercase tracking-[0.18em]">
@@ -1282,7 +1372,7 @@ function ContactSection() {
           </span>
           <div>
             <p className="text-xs font-black uppercase tracking-[0.24em] text-white/40">Direct Inquiry</p>
-            <p className="mt-3 text-2xl font-black">shweta16tripathi@gmail.com</p>
+            <p className="mt-3 text-2xl font-black">weelelectronic @gmail.com</p>
           </div>
         </div>
         <div className="flex gap-6">
