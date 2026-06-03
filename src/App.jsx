@@ -381,7 +381,7 @@ function PulseAnimation({ path }) {
    ══════════════════════════════════════════════════════════ */
 function DiagramArea({ hovered, setHovered }) {
   return (
-    <div style={{ position:"relative", width:"100%", height:"100%", display:"flex", alignItems:"center", justifyContent:"center" }}>
+    <div style={{ position:"relative", left: "100px",  width:"100%", height:"45%", display:"flex", alignItems:"center", justifyContent:"center" }}>
 
       {/* ── PCB image container with glow ── */}
       <div style={{
@@ -624,29 +624,29 @@ function App() {
 <CircuitNetwork/> */}
 
 
-      <section
-        id="home"
-        onMouseMove={handleMouseMove}
-        className="relative mx-auto flex w-full max-w-[1500px] flex-col px-5 pb-16 pt-32 sm:px-8 lg:px-12 lg:pt-40"
-      >
-        <div className="relative z-10 max-w-3xl">
-          <div className="mb-8 flex items-center gap-4 text-xs font-extrabold uppercase tracking-[0.28em] text-fuchsia-100">
-            <span className="h-px w-12 bg-fuchsia-300/70" />
-            Design • Proto • Validation
+        <section
+          id="home"
+          onMouseMove={handleMouseMove}
+          className="relative mx-auto flex w-full max-w-[1500px] flex-col px-5 pb-16 pt-32 sm:px-8 lg:px-12 lg:pt-40"
+        >
+          <div className="relative z-10 max-w-2xl ml-28">
+            <div className="mb-8 ml-6 flex items-center gap-4 text-xs font-extrabold uppercase tracking-[0.28em] text-fuchsia-100">
+              <span className="h-px w-12 bg-fuchsia-300/70" />
+              Design • Proto • Validation
+            </div>
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="text-balance text-4xl font-black leading-[0.98] tracking-tight text-white sm:text-4xl lg:text-4xl"
+            >
+              Precision Engineered AI Hardware.
+            </motion.h1>
+            <p className="mt-7 max-w-2xl text-sm leading-8 text-white/58 sm:text-sm">
+              Specialized manufacturing services for defense, industrial and intelligent infrastructure. Complex specifications become high-reliability circuit systems.
+            </p>
           </div>
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-balance text-5xl font-black leading-[0.98] tracking-tight text-white sm:text-6xl lg:text-7xl"
-          >
-            Precision Engineered AI Hardware.
-          </motion.h1>
-          <p className="mt-7 max-w-2xl text-lg leading-8 text-white/58 sm:text-xl">
-            Specialized in manufacturing services for defense, industrial and intelligent infrastructure. Complex specifications become high-reliability circuit systems.
-          </p>
-        </div>
- <HomeSection/>
+  <HomeSection/>
         {/* <motion.div style={{ x: parallaxX, y: parallaxY }} className="relative z-10 mt-12 flex flex-1 items-center justify-center lg:-mt-2">
           <CircuitNetwork active={active} setActive={setActive} />
         </motion.div> */}
@@ -727,7 +727,7 @@ function HomeSection() {
           </motion.div>
 
 
-          <div style={{ position:"absolute", inset:0, padding:"24px 16px 24px 8px" }}>
+          <div style={{ position:"absolute", inset:0, padding:"0px 16px 24px 8px" }}>
             <DiagramArea hovered={hovered} setHovered={setHovered} />
           </div>
         </div>
@@ -1071,7 +1071,6 @@ function CircuitBoard () {
 };
 
 
-
 function CircuitConnection({ feature, index, active }) {
   const [sx, sy] = feature.node;
   const cx = 500;
@@ -1283,7 +1282,7 @@ function ContactSection() {
           </span>
           <div>
             <p className="text-xs font-black uppercase tracking-[0.24em] text-white/40">Direct Inquiry</p>
-            <p className="mt-3 text-2xl font-black">weelektronik@outlook.com</p>
+            <p className="mt-3 text-2xl font-black">shweta16tripathi@gmail.com</p>
           </div>
         </div>
         <div className="flex gap-6">
