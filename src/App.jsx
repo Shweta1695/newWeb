@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import myPCB from './assets/my-pcb-image.png';
 import logo from './assets/logo_new.svg';
+import emailjs from '@emailjs/browser';
 
 
 
@@ -550,9 +551,12 @@ function DiagramArea({ hovered, setHovered }) {
                       exit={{ opacity:0, scale:0.82 }}
                       transition={{ duration:0.14 }}
                       style={{
-                        position:"absolute", top:"50%", transform:"translateY(-50%)",
+                        position:"absolute", 
+                        top:"-10%",
+                         transform:"translateY(-50%)",
                         [tipRight?"right":"left"]: "50px",
                         zIndex:50, pointerEvents:"none", whiteSpace:"nowrap",
+
                       }}
                     >
                       <div style={{
@@ -1315,7 +1319,7 @@ function CapabilitiesSection() {
     <section id="capabilities" className="relative z-10 mx-auto grid max-w-[1320px] gap-12 px-5 py-24 sm:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:px-12">
       <div>
         <span className="rounded-full border border-white/12 px-5 py-2 text-xs font-black uppercase tracking-[0.22em] text-white/55">Our Protocol</span>
-        <h2 className="mt-8 text-5xl font-black leading-none tracking-tight sm:text-6xl">Lifecycle Engineering.</h2>
+        <h2 className="mt-4 text-4xl font-black tracking-tight sm:text-4xl">Lifecycle Engineering.</h2>
         <p className="mt-7 max-w-lg text-lg leading-8 text-white/58">
           From component selection to lab-certified validation, we manage the complete product development cycle with indigenous reliability.
         </p>
@@ -1362,7 +1366,89 @@ function CapabilitiesSection() {
   );
 }
 
+// function ContactSection() {
+//   return (
+//     <section id="contact" className="relative z-10 mx-auto grid max-w-[1320px] gap-12 px-5 py-24 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:px-12">
+//       <div className="self-center space-y-12">
+//         <div className="flex gap-6">
+//           <span className="grid h-14 w-14 place-items-center rounded-full border border-white/14 bg-white/7">
+//             <Mail />
+//           </span>
+//           <div>
+//             <p className="text-xs font-black uppercase tracking-[0.24em] text-white/40">Direct Inquiry</p>
+//             <p className="mt-3 text-2xl font-black">weelelektronic@mail.com</p>
+//           </div>
+//         </div>
+//         <div className="flex gap-6">
+//           <span className="grid h-14 w-14 place-items-center rounded-full border border-white/14 bg-white/7">
+//             <MapPin />
+//           </span>
+//           <div>
+//             <p className="text-xs font-black uppercase tracking-[0.24em] text-white/40">Facility Address</p>
+//             <p className="mt-3 max-w-sm leading-7 text-white/82">F30, 1st FLR, Raghuleela Mall, Kandivali (W), Mumbai 400067</p>
+//           </div>
+//         </div>
+//       </div>
+//       <form className="glass rounded-[1.8rem] p-7 sm:p-10 lg:p-12">
+//         <p className="mb-8 text-xs font-black uppercase tracking-[0.22em] text-white/42">Request Technical Consultation</p>
+//         <div className="grid gap-6 sm:grid-cols-2">
+//           <input className="rounded-3xl border border-white/12 bg-white/7 px-5 py-4 outline-none transition placeholder:text-white/38 focus:border-cyan-200/60" placeholder="Your Name" />
+//           <input className="rounded-3xl border border-white/12 bg-white/7 px-5 py-4 outline-none transition placeholder:text-white/38 focus:border-cyan-200/60" placeholder="Organization" />
+//         </div>
+//         <input className="mt-6 w-full rounded-3xl border border-white/12 bg-white/7 px-5 py-4 outline-none transition placeholder:text-white/38 focus:border-cyan-200/60" placeholder="Email Address" />
+//         <textarea className="mt-6 min-h-32 w-full resize-none rounded-3xl border border-white/12 bg-white/7 px-5 py-4 outline-none transition placeholder:text-white/38 focus:border-cyan-200/60" placeholder="Tell us about your requirements..." />
+//         <button className="mt-8 w-full rounded-3xl bg-white px-8 py-4 text-sm font-black uppercase tracking-[0.18em] text-purple-900 shadow-[0_0_36px_rgba(255,255,255,0.28)] transition hover:bg-cyan-100">
+//           Send Requirement
+//         </button>
+//       </form>
+//       <footer className="border-t border-white/10 py-8 text-xs font-black uppercase tracking-[0.18em] text-white/35 lg:col-span-2">
+//         <div className="flex flex-col justify-between gap-4 sm:flex-row">
+//           <span>© 2026 Weelektronik MFG. UDYAM-MH-17-0194742</span>
+//           <span className="text-yellow-300">Indigenous Technology</span>
+//         </div>
+//       </footer>
+//     </section>
+//   );
+// }
 function ContactSection() {
+  const [form, setForm] = useState({
+    name: "",
+    organization: "",
+    email: "",
+    message: "",
+  });
+  const [status, setStatus] = useState("idle"); // idle | sending | success | error
+
+  function handleChange(e) {
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!form.name || !form.email || !form.message) return;
+    setStatus("sending");
+
+    try {
+      await emailjs.send(
+        "service_auez2qc",    // ← replace after Step 1 below
+        "template_slv2joi",   // ← replace after Step 2 below
+        {
+          from_name:    form.name,
+          organization: form.organization || "Not provided",
+          from_email:   form.email,
+          message:      form.message,
+          to_email:     "connect@weelektronic.net",
+        },
+        "YWKMWwzI-lI4QCGFU"     // ← replace after Step 3 below
+      );
+      setStatus("success");
+      setForm({ name: "", organization: "", email: "", message: "" });
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      setStatus("error");
+    }
+  }
+
   return (
     <section id="contact" className="relative z-10 mx-auto grid max-w-[1320px] gap-12 px-5 py-24 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:px-12">
       <div className="self-center space-y-12">
@@ -1372,7 +1458,7 @@ function ContactSection() {
           </span>
           <div>
             <p className="text-xs font-black uppercase tracking-[0.24em] text-white/40">Direct Inquiry</p>
-            <p className="mt-3 text-2xl font-black">weelelectronic @gmail.com</p>
+            <p className="mt-3 text-2xl font-black">connect@weelektronic.net</p>
           </div>
         </div>
         <div className="flex gap-6">
@@ -1380,26 +1466,103 @@ function ContactSection() {
             <MapPin />
           </span>
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.24em] text-white/40">Facility Address</p>
-            <p className="mt-3 max-w-sm leading-7 text-white/82">F30, 1st FLR, Raghuleela Mall, Kandivali (W), Mumbai 400067</p>
+            <p className="text-xs font-black uppercase tracking-[0.24em] text-white/40">Factory and Communication Address</p>
+            <p className="mt-3 max-w-xs leading-7 text-white/82">
+              F30, 1st floor, Raghuleela Mall, Behind Poiser Depot, Kandivali (W), Mumbai, Maharashtra, India 400067
+            </p>
           </div>
         </div>
       </div>
-      <form className="glass rounded-[1.8rem] p-7 sm:p-10 lg:p-12">
-        <p className="mb-8 text-xs font-black uppercase tracking-[0.22em] text-white/42">Request Technical Consultation</p>
+
+      <form onSubmit={handleSubmit} className="glass rounded-[1.8rem] p-7 sm:p-10 lg:p-12">
+        <p className="mb-8 text-xs font-black uppercase tracking-[0.22em] text-white/42">
+          Request Technical Consultation
+        </p>
+
         <div className="grid gap-6 sm:grid-cols-2">
-          <input className="rounded-3xl border border-white/12 bg-white/7 px-5 py-4 outline-none transition placeholder:text-white/38 focus:border-cyan-200/60" placeholder="Your Name" />
-          <input className="rounded-3xl border border-white/12 bg-white/7 px-5 py-4 outline-none transition placeholder:text-white/38 focus:border-cyan-200/60" placeholder="Organization" />
+          <input
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            required
+            className="rounded-3xl glass px-5 py-4 outline-none transition placeholder:text-white/58 focus:border-cyan-200/60"
+            placeholder="Your Name *"
+          />
+          <input
+            name="organization"
+            value={form.organization}
+            onChange={handleChange}
+           // className="rounded-3xl border border-white/12 bg-white/7 px-5 py-4 outline-none transition placeholder:text-white/38 focus:border-cyan-200/60"
+            className="rounded-3xl glass bg-white/7 px-5 py-4 outline-none transition placeholder:text-white/38 focus:border-cyan-200/60"
+           
+            placeholder="Organization"
+          />
         </div>
-        <input className="mt-6 w-full rounded-3xl border border-white/12 bg-white/7 px-5 py-4 outline-none transition placeholder:text-white/38 focus:border-cyan-200/60" placeholder="Email Address" />
-        <textarea className="mt-6 min-h-32 w-full resize-none rounded-3xl border border-white/12 bg-white/7 px-5 py-4 outline-none transition placeholder:text-white/38 focus:border-cyan-200/60" placeholder="Tell us about your requirements..." />
-        <button className="mt-8 w-full rounded-3xl bg-white px-8 py-4 text-sm font-black uppercase tracking-[0.18em] text-purple-900 shadow-[0_0_36px_rgba(255,255,255,0.28)] transition hover:bg-cyan-100">
-          Send Requirement
+
+        <input
+          name="email"
+          type="email"
+          value={form.email}
+          onChange={handleChange}
+          required
+          className="mt-6 w-full rounded-3xl glass bg-white/7 px-5 py-4 outline-none transition placeholder:text-white/38 focus:border-cyan-200/60"
+          placeholder="Email Address *"
+        />
+
+        <textarea
+          name="message"
+          value={form.message}
+          onChange={handleChange}
+          required
+          className="mt-6 min-h-32 w-full resize-none rounded-3xl glass bg-white/7 px-5 py-4 outline-none transition placeholder:text-white/38 focus:border-cyan-200/60"
+          placeholder="Tell us about your requirements... *"
+        />
+
+        {/* Status messages */}
+        {status === "success" && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-6 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 px-5 py-4 text-sm font-bold text-emerald-400"
+          >
+            ✓ Message sent successfully! We'll get back to you shortly at {form.email || "your email"}.
+          </motion.div>
+        )}
+        {status === "error" && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-6 rounded-2xl border border-red-500/30 bg-red-500/10 px-5 py-4 text-sm font-bold text-red-400"
+          >
+            ✗ Something went wrong. Please try again or email us directly at connect@weelektronic.net
+          </motion.div>
+        )}
+
+        <button
+          type="submit"
+          disabled={status === "sending"}
+          className="mt-8 w-full rounded-3xl bg-white px-8 py-4 text-sm font-black uppercase tracking-[0.18em] text-purple-900 shadow-[0_0_36px_rgba(255,255,255,0.28)] transition hover:bg-purple-100 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {status === "sending" ? (
+            <span className="flex items-center justify-center gap-3">
+              <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+              </svg>
+              Sending…
+            </span>
+          ) : "Send Requirement"}
         </button>
+
+        <p className="mt-4 text-center text-[10px] font-bold uppercase tracking-[0.16em] text-white/25">
+          * Required fields
+        </p>
       </form>
+
       <footer className="border-t border-white/10 py-8 text-xs font-black uppercase tracking-[0.18em] text-white/35 lg:col-span-2">
         <div className="flex flex-col justify-between gap-4 sm:flex-row">
           <span>© 2026 Weelektronik MFG. UDYAM-MH-17-0194742</span>
+          {/* <span>ISO COMPLIANT</span> */}
           <span className="text-yellow-300">Indigenous Technology</span>
         </div>
       </footer>

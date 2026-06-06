@@ -6,15 +6,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@vitejs/plugin-react": "latest",
+    "autoprefixer": "latest",
     "framer-motion": "latest",
     "lucide-react": "latest",
-    "vite": "latest",
+    "postcss": "latest",
     "react": "latest",
     "react-dom": "latest",
     "tailwindcss": "^3.4.17",
-    "postcss": "latest",
-    "autoprefixer": "latest"
-  },
-  "devDependencies": {}
+    "vite": "latest"
+  }
 }
